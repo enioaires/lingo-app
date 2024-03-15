@@ -22,7 +22,7 @@ const Home: FC = () => {
         <h1 className="text-xl lgÇtext-3xl font-bold text-neutral-600 max-w-[480px] text-center">
           Aprenda, treine e masterize novas línguas usando Lingo!
         </h1>
-        <div>
+        <div className="flex flex-col items-center gap-y-3 max-w-[330px] w-full">
           <ClerkLoading>
             <Loader className="w-5 h-5 animate-spin text-muted-foreground" />
           </ClerkLoading>
@@ -43,11 +43,7 @@ const Home: FC = () => {
                 afterSignInUrl="/learn"
                 afterSignUpUrl="/learn"
               >
-                <Button
-                  size="lg"
-                  variant="primeryOutline"
-                  className="w-full mt-2"
-                >
+                <Button size="lg" variant="primeryOutline" className="w-full">
                   Ja possuo uma conta
                 </Button>
               </SignInButton>

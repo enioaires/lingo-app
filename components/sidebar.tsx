@@ -18,7 +18,7 @@ export const Sidebar: FC<Props> = ({ className }) => {
         className
       )}
     >
-      <Link href="/learn">
+      <Link href="/">
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
           <Image alt="logo" src={"/mascot.svg"} width={40} height={40} />
           <h1 className="text-2xl font-extrabold text-emerald-600 tracking-wide">

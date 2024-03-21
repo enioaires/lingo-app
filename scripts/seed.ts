@@ -95,6 +95,14 @@ const main = async () => {
         imageSrc: "/woman.svg",
         audioSrc: "/es_woman.mp3",
       },
+      {
+        id: 3,
+        challengeId: 1,
+        text: "El zumbi",
+        correct: false,
+        imageSrc: "/zombie.svg",
+        audioSrc: "/es_zombie.mp3",
+      },
     ]);
   } catch (error) {
     console.error(error);

@@ -1,7 +1,8 @@
 "use server";
 
 import db from "@/db/drizzle";
-import { getCourseById, getUserProgress } from "@/db/queries";
+import { getCourseById } from "@/db/queries/courses";
+import { getUserProgress } from "@/db/queries/user-progress";
 import { userProgress } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";

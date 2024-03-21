@@ -1,12 +1,11 @@
 "use server";
 
-import db from "@/db/drizzle";
-import { getCourseById } from "@/db/queries/courses";
-import { getUserProgress } from "@/db/queries/user-progress";
-import { userProgress } from "@/db/schema";
-import { auth, currentUser } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import db from "@/db/drizzle";
+import { auth, currentUser } from "@clerk/nextjs";
+import { userProgress } from "@/db/schema";
+import { getCourseById, getUserProgress } from "@/db/queries";
 
 export const upsertUserProgress = async (courseId: number) => {
   const { userId } = await auth();

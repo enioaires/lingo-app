@@ -1,23 +1,32 @@
 import { FC } from "react";
+import { redirect } from "next/navigation";
 import { Header } from "./header";
+import { Unit } from "./unit";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { UserProgress } from "@/components/user-progress";
-import { redirect } from "next/navigation";
-import { getUserProgress } from "@/db/queries/user-progress";
-import { getUnits } from "@/db/queries/units";
-import { Unit } from "./unit";
+import {
+  getCourseProgress,
+  getLessonPercentage,
+  getUnits,
+  getUserProgress,
+} from "@/db/queries";
 
 const LearnPage: FC = async () => {
   const userProgressData = getUserProgress();
+  const courseProgressData = getCourseProgress();
+  const lessonPercentageData = getLessonPercentage();
   const unitsData = getUnits();
 
-  const [userProgress, units] = await Promise.all([
-    userProgressData,
-    unitsData,
-  ]);
+  const [userProgress, courseProgress, lessonPercentage, units] =
+    await Promise.all([
+      userProgressData,
+      courseProgressData,
+      lessonPercentageData,
+      unitsData,
+    ]);
 
-  if (!userProgress || !userProgress.activeCourse) {
+  if (!userProgress || !userProgress.activeCourse || !courseProgress) {
     redirect("/courses");
   }
 
@@ -33,8 +42,8 @@ const LearnPage: FC = async () => {
               description={unit.description}
               title={unit.title}
               lessons={unit.lessons}
-              activeLesson={undefined}
-              activeLessonPorcentage={0}
+              activeLesson={courseProgress.activeLesson}
+              activeLessonPorcentage={lessonPercentage}
             />
           </div>
         ))}

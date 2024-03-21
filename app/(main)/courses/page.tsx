@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { List } from "./list";
-import { getCourses } from "@/db/queries/courses";
-import { getUserProgress } from "@/db/queries/user-progress";
+import { getCourses, getUserProgress } from "@/db/queries";
 
 const CorusesPage: FC = async () => {
   const coursesData = getCourses();

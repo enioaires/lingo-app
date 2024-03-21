@@ -1,7 +1,8 @@
+import { FC, useCallback } from "react";
+import Image from "next/image";
+import { useAudio, useKey } from "react-use";
 import { challenges } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { FC } from "react";
 
 type Props = {
   id: number;
@@ -9,7 +10,7 @@ type Props = {
   imageSrc: string | null;
   shortcut: string;
   selected?: boolean;
-  onClick: (id: number) => void;
+  onClick: () => void;
   status?: "correct" | "wrong" | "none";
   audioSrc: string | null;
   disabled?: boolean;
@@ -28,10 +29,19 @@ export const Card: FC<Props> = ({
   disabled,
   type,
 }) => {
-  console.log(status);
+  const [audio, _, controls] = useAudio({ src: audioSrc || "" });
+  const handleClick = useCallback(() => {
+    if (disabled) return;
+
+    controls.play();
+    onClick();
+  }, [disabled, onClick, controls]);
+
+  useKey(shortcut, handleClick, {}, [handleClick]);
+
   return (
     <div
-      onClick={() => {}}
+      onClick={handleClick}
       className={cn(
         "h-full border-2 rounded-xl border-b-4 hover:bg-black/5 p-4 lg:p-6 cursor-pointer active:border-b-2",
         selected && "border-sky-300 bg-sky-100 hover:bg-sky-100",
@@ -45,6 +55,7 @@ export const Card: FC<Props> = ({
         type === "ASSIST" && "lg:p-3 w-full"
       )}
     >
+      {audio}
       {imageSrc && (
         <div className="relative aspect-square mb-4 max-h-[80px] lg:max-h-[150px] w-full">
           <Image src={imageSrc} alt={text} fill />
